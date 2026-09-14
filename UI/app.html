@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>PLAYER·AI — Football Player Classifier</title>
+
+    <link rel="stylesheet" href="app.css">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+</head>
+
+<body>
+
+    <div class="page">
+
+        <!-- ================= NAVBAR ================= -->
+        <header class="navbar">
+
+            <a href="#home" class="logo">
+                <span class="logo-mark">P·AI</span>
+            </a>
+
+            <nav class="nav-links">
+                <a href="#home" class="active">Home</a>
+                <a href="#classify">Classify</a>
+                <a href="#roster">Roster</a>
+                <a href="#model">The Model</a>
+            </nav>
+
+            <button class="nav-button" onclick="scrollToSection('classify')">
+                Try the classifier
+            </button>
+
+            <button class="menu-button" onclick="toggleMenu()" aria-label="Toggle menu">☰</button>
+
+        </header>
+
+
+        <!-- ================= HERO ================= -->
+        <section id="home" class="hero">
+
+            <div class="hero-grid"></div>
+            <div class="hero-overlay"></div>
+
+            <div class="hero-content">
+
+                <p class="small-title">Computer vision, pitch-side</p>
+
+                <h1 class="display">
+                    Point a camera<br>
+                    <span>at a legend.</span>
+                </h1>
+
+                <p class="hero-description">
+                    Upload a photo and PLAYER·AI reads the face like a scout reads a match —
+                    matching it against a trained roster of the game's biggest names.
+                </p>
+
+                <button class="hero-button" onclick="scrollToSection('classify')">
+                    Identify a player
+                </button>
+
+            </div>
+
+        </section>
+
+
+        <!-- ================= CLASSIFY ================= -->
+        <section id="classify" class="classify-section">
+
+            <div class="section-heading">
+
+                <p class="section-label">Player identification</p>
+
+                <h2 class="display">Upload a photo</h2>
+
+                <span>
+                    A clear, front-facing shot works best. The model does the rest.
+                </span>
+
+            </div>
+
+
+            <div class="classifier-card">
+
+                <div id="dropZone" class="drop-zone">
+
+                    <input
+                        type="file"
+                        id="fileInput"
+                        accept="image/*"
+                        hidden
+                    >
+
+                    <div id="uploadPrompt" class="upload-prompt">
+
+                        <div class="upload-icon">
+                            <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M12 16V4M12 4L7 9M12 4L17 9" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                <path d="M4 16V18C4 19.1046 4.89543 20 6 20H18C19.1046 20 20 19.1046 20 18V16" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+                        </div>
+
+                        <h3>Drag a photo here</h3>
+
+                        <p>or <span>browse from your device</span></p>
+
+                        <small>JPG, JPEG or PNG · one face works best</small>
+
+                    </div>
+
+
+                    <div id="imagePreviewContainer" class="preview-container">
+
+                        <div class="preview-frame">
+                            <img id="imgPreview" src="" alt="Player preview">
+                            <div class="scan-line"></div>
+                        </div>
+
+                        <button id="removeImage" class="remove-button">
+                            Remove photo
+                        </button>
+
+                    </div>
+
+                </div>
+
+
+                <button id="classifyBtn" class="classify-button">
+                    <span class="btn-label">Identify player</span>
+                </button>
+
+
+                <!-- RESULT -->
+
+                <div id="resultContainer" class="result-card">
+
+                    <p class="result-label">Match result</p>
+
+                    <h3 id="resultText">--</h3>
+
+                    <div id="confidenceContainer" class="confidence-container">
+
+                        <div class="confidence-header">
+                            <span>Confidence</span>
+                            <span id="confidenceValue">--</span>
+                        </div>
+
+                        <div class="confidence-bar">
+                            <div id="confidenceFill" class="confidence-fill"></div>
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- ================= ROSTER (interactive hover list) ================= -->
+        <section id="roster" class="roster-section">
+
+            <div class="section-heading light">
+                <p class="section-label">Supported players</p>
+                <h2 class="display">The trained roster</h2>
+                <span>Hover a name — the model's read on each player follows your cursor.</span>
+            </div>
+
+            <ul class="roster-list" id="rosterList">
+
+                <li class="roster-row" data-number="10" data-country="Argentina" data-flag="🇦🇷" data-tag="The GOAT case">
+                    <span class="roster-index">01</span>
+                    <span class="roster-name">Lionel Messi</span>
+                    <span class="roster-meta">Argentina</span>
+                </li>
+
+                <li class="roster-row" data-number="19" data-country="Spain" data-flag="🇪🇸" data-tag="The next one">
+                    <span class="roster-index">02</span>
+                    <span class="roster-name">Lamine Yamal</span>
+                    <span class="roster-meta">Spain</span>
+                </li>
+
+                <li class="roster-row" data-number="11" data-country="Egypt" data-flag="🇪🇬" data-tag="The Pharaoh">
+                    <span class="roster-index">03</span>
+                    <span class="roster-name">Mohamed Salah</span>
+                    <span class="roster-meta">Egypt</span>
+                </li>
+
+                <li class="roster-row" data-number="7" data-country="France" data-flag="🇫🇷" data-tag="Pace unmatched">
+                    <span class="roster-index">04</span>
+                    <span class="roster-name">Kylian Mbappé</span>
+                    <span class="roster-meta">France</span>
+                </li>
+
+                <li class="roster-row" data-number="7" data-country="Portugal" data-flag="🇵🇹" data-tag="SIUUU">
+                    <span class="roster-index">05</span>
+                    <span class="roster-name">Cristiano Ronaldo</span>
+                    <span class="roster-meta">Portugal</span>
+                </li>
+
+            </ul>
+
+            <div class="roster-preview" id="rosterPreview">
+                <div class="roster-preview-number" id="previewNumber">10</div>
+                <div class="roster-preview-flag" id="previewFlag">🇦🇷</div>
+                <div class="roster-preview-tag" id="previewTag">The GOAT case</div>
+            </div>
+
+        </section>
+
+
+        <!-- ================= THE MODEL ================= -->
+        <section id="model" class="about-section">
+
+            <div class="about-content">
+
+                <p class="section-label">How it works</p>
+
+                <h2 class="display">
+                    From pixels<br>
+                    <span>to a name.</span>
+                </h2>
+
+                <p>
+                    PLAYER·AI locates the face in your photo, breaks it down into
+                    features a classifier can compare, then scores it against every
+                    player it was trained on.
+                </p>
+
+                <ol class="pipeline">
+
+                    <li>
+                        <span class="pipeline-index">01</span>
+                        <div>
+                            <strong>Detect</strong>
+                            <span>OpenCV locates the face and eyes in the frame.</span>
+                        </div>
+                    </li>
+
+                    <li>
+                        <span class="pipeline-index">02</span>
+                        <div>
+                            <strong>Transform</strong>
+                            <span>A wavelet transform isolates the features that matter.</span>
+                        </div>
+                    </li>
+
+                    <li>
+                        <span class="pipeline-index">03</span>
+                        <div>
+                            <strong>Classify</strong>
+                            <span>An SVM model scores the face against the trained roster.</span>
+                        </div>
+                    </li>
+
+                    <li>
+                        <span class="pipeline-index">04</span>
+                        <div>
+                            <strong>Return</strong>
+                            <span>The best match comes back with a confidence score.</span>
+                        </div>
+                    </li>
+
+                </ol>
+
+            </div>
+
+        </section>
+
+
+        <!-- ================= FOOTER ================= -->
+        <footer>
+
+            <div class="logo">
+                <span class="logo-mark">P·AI</span>
+            </div>
+
+            <p>AI Football Player Classifier</p>
+
+        </footer>
+
+
+        <!-- ================= CREDIT BAR ================= -->
+        <div class="credit-bar">
+            <span class="credit-badge">
+                <span class="credit-dot"></span>
+                Powered by <strong>Samy Elnagar</strong>
+            </span>
+        </div>
+
+    </div>
+
+    <script src="app.js"></script>
+
+</body>
+</html>
