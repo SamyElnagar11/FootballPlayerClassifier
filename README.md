@@ -29,6 +29,34 @@ The trained model is connected to a simple web interface using Flask.
 
 You can upload an image through the interface and get the predicted player.
 
+## Technologies
+Python
+NumPy
+Pandas
+OpenCV
+PyWavelets
+Scikit-learn
+Flask
+HTML
+CSS
+JavaScript
+
+## Running the Project
+
+Clone the repository:
+
+[git clone https://github.com/SamyElnagar11/FootballPlayerClassifier.git]
+
+Install the required Python libraries and run the Flask server.
+
+Then open the web interface and upload an image to classify the player.
+
+## Project Status
+
+The current version supports 5 football players.
+
+More players can be added later by collecting and preparing additional training data.
+
 ## Project Structure
 
 ```text
@@ -55,32 +83,3 @@ FootballPlayerClassifier/
     ├── wavelet.py
     ├── artifacts/
     └── opencv/
-    ```
-
-## Technologies
-Python
-NumPy
-Pandas
-OpenCV
-PyWavelets
-Scikit-learn
-Flask
-HTML
-CSS
-JavaScript    
-
-## Running the Project
-
-Clone the repository:
-
-git clone https://github.com/SamyElnagar11/FootballPlayerClassifier.git
-
-Install the required Python libraries and run the Flask server.
-
-Then open the web interface and upload an image to classify the player.
-
-## Project Status
-
-The current version supports 5 football players.
-
-More players can be added later by collecting and preparing additional training data.
