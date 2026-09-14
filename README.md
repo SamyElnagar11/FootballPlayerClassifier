@@ -4,11 +4,11 @@ A Machine Learning project that classifies football players from images.
 
 The model is currently trained to recognize 5 players:
 
+- Cristiano Ronaldo
 - Lionel Messi
 - Lamine Yamal
 - Mohamed Salah
 - Kylian Mbappé
-- Cristiano Ronaldo
 
 The current version uses 5 players mainly to reduce the time needed to collect and prepare the dataset. More players can be added in future updates.
 
